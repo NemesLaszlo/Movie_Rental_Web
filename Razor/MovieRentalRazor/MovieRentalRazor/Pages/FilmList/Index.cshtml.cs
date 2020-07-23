@@ -5,20 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using MovieRentalRazor.Model;
 
 namespace MovieRentalRazor.Pages.FilmList
 {
 
     public class IndexModel : PageModel
     {
-        private readonly Model.ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
 
-        public IndexModel(Model.ApplicationDbContext db)
+        public IndexModel(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        public IEnumerable<Model.Film> Films { get; set; }
+        public IEnumerable<Film> Films { get; set; }
 
         public async Task OnGet()
         {
