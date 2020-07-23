@@ -12,6 +12,7 @@ namespace MovieRentalRazor.Pages.FilmList
 
     public class IndexModel : PageModel
     {
+
         private readonly ApplicationDbContext _db;
 
         public IndexModel(ApplicationDbContext db)

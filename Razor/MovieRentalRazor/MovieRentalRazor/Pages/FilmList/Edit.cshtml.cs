@@ -8,12 +8,13 @@ using MovieRentalRazor.Model;
 
 namespace MovieRentalRazor.Pages.FilmList
 {
-    public class CreateModel : PageModel
+
+    public class EditModel : PageModel
     {
 
-        private readonly ApplicationDbContext _db;
+        private ApplicationDbContext _db;
 
-        public CreateModel(ApplicationDbContext db)
+        public EditModel(ApplicationDbContext db)
         {
             _db = db;
         }
@@ -21,24 +22,24 @@ namespace MovieRentalRazor.Pages.FilmList
         [BindProperty]
         public Film Film { get; set; }
 
-        public void OnGet()
+        public async Task OnGet(int id)
         {
-
+            Film = await _db.Film.FindAsync(id);
         }
 
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                await _db.Film.AddAsync(Film);
+                var FilmFromDb = await _db.Film.FindAsync(Film.Id);
+                FilmFromDb.Title = Film.Title;
+                FilmFromDb.Director = Film.Director;
+                FilmFromDb.Year = Film.Year;
+
                 await _db.SaveChangesAsync();
                 return RedirectToPage("Index");
             }
-            else
-            {
-                return Page();
-            }
-
+            return RedirectToPage();
         }
     }
 }
