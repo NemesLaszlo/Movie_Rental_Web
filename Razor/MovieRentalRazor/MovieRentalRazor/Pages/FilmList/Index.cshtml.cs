@@ -22,9 +22,24 @@ namespace MovieRentalRazor.Pages.FilmList
 
         public IEnumerable<Film> Films { get; set; }
 
+
         public async Task OnGet()
         {
             Films = await _db.Film.ToListAsync();
+        }
+
+
+        // post because of the delete button
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var film = await _db.Film.FindAsync(id);
+            if(film == null)
+            {
+                return NotFound();
+            }
+            _db.Film.Remove(film);
+            await _db.SaveChangesAsync();
+            return RedirectToPage("Index");
         }
     }
 }
