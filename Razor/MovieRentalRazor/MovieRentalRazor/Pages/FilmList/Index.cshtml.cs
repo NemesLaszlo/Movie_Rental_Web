@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MovieRentalRazor.Model;
+using Microsoft.Extensions.Logging;
 
 namespace MovieRentalRazor.Pages.FilmList
 {
@@ -40,6 +41,11 @@ namespace MovieRentalRazor.Pages.FilmList
             _db.Film.Remove(film);
             await _db.SaveChangesAsync();
             return RedirectToPage("Index");
+        }
+
+        public void OnPostSearch(string SearchString)
+        {
+            Films = (from x in _db.Film where (x.Title.Contains(SearchString) || x.Director.Contains(SearchString) || x.Year.Contains(SearchString)) select x).ToList();
         }
     }
 }
