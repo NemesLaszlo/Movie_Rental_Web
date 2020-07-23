@@ -16,5 +16,7 @@ namespace MovieRentalRazor.Model
 
         public string Director { get; set; }
 
+        public string Year { get; set; }
+
     }
 }

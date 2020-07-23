@@ -1,0 +1,62 @@
+﻿@page
+@model MovieRentalRazor.Pages.FilmList.IndexModel
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Film List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-page="Create" class="btn btn-info form-control text-white">Create New Film</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="get">
+            @if(Model.Films.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="Films.FirstOrDefault().Title"></label>
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(data => data.Films.FirstOrDefault().Director)*@
+                            <label asp-for="Films.FirstOrDefault().Director"></label>
+                        </th>
+                        <th>
+                            <label asp-for="Films.FirstOrDefault().Year"></label>
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach(var item in Model.Films)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(data => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(data => item.Director)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(data => item.Year)
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <a class="btn btn-success btn-sm text-white">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No Films Available</p>
+            }
+        </form>
+    </div>
+
+
+</div>
+
